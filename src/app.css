@@ -1,1 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Alata&family=Arimo:ital,wght@0,400..700;1,400..700&family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bellefair&family=Edu+AU+VIC+WA+NT+Arrows:wght@400..700&family=Figtree:ital,wght@0,300..900;1,300..900&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Gilda+Display&family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Karla:ital,wght@0,200..800;1,200..800&family=Kumbh+Sans:wght@100..900&family=League+Spartan:wght@100..900&family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Outfit:wght@100..900&family=Overpass:ital,wght@0,100..900;1,100..900&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&family=Playwrite+MX+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Young+Serif&display=swap');
 @import 'tailwindcss';
+
+
+/* - Very dark blue: hsl(220, 13%, 13%)
+- Dark grayish blue: hsl(219, 9%, 45%)
+- Grayish blue: hsl(220, 14%, 75%)
+- Light grayish blue: hsl(223, 64%, 98%)
+- White: hsl(0, 0%, 100%)
+- Black (with 75% opacity for lightbox background): hsl(0, 0%, 0%) 
+
+-Orange: hsl(26, 100%, 55%)
+- Pale orange: hsl(25, 100%, 94%)
+*/
+
+@theme {
+
+    /* primary color */
+    --color-orange: hsl(26, 100%, 55%);
+    --color-pale-orange: hsl(25, 100%, 94%);
+
+    /* neutral */
+    --color-dark-blue: hsl(220, 13%, 13%);
+    --color-dark-grayish-blue: hsl(219, 9%, 45%);
+    --color-grayish-blue: hsl(220, 14%, 75%);
+    --color-light-grayish-blue: hsl(223, 64%, 98%);
+
+    --font-bold: 700;
+    --font-md: 400;
+}
+
+@layer base {
+    body {
+        color: var(--color-dark-blue);
+        font-family: "Kumbh Sans", sans-serif;
+    }
+
+    p {
+        line-height: 1.5;
+        font-size: 1em;
+        font-weight: var(--font-md);
+    }
+
+    img {
+        max-width: 100%;
+    }
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+
+    @media screen and (max-width: 1440px) {
+        max-width: 90%;
+    }
+}
