@@ -1,6 +1,6 @@
 <script>
     import Header from "$lib/components/Header.svelte";
-    import { ShoppingCart } from "@lucide/svelte";
+    import { Currency, ShoppingCart } from "@lucide/svelte";
 
     import minus from "$lib/assets/icon-minus.svg";
     import plus from "$lib/assets/icon-plus.svg";
@@ -22,24 +22,53 @@
         {
             bigImage: productImage1,
             smallImage: smallProductImage1,
-            id: 1
+            id: 0
         },
         {
             bigImage: productImage2,
             smallImage: smallProductImage2,
-            id: 2
+            id: 1
         },
         {
             bigImage: productImage3,
             smallImage: smallProductImage3,
-            id: 3
+            id: 2
         },
         {
             bigImage: productImage4,
             smallImage: smallProductImage4,
-            id: 4
+            id: 3
         },
     ];
+
+
+
+    let productIndex = $state(0);
+    let currentProduct = $derived(productImages[productIndex]);
+
+
+    let productPrice = 125;
+    let productNumber = $state(0);
+
+
+    const incrementProductNumber = () => productNumber++;
+    const decrementProductNumber = () => {
+        if(productNumber <= 0) return;
+        productNumber--;
+    };
+
+
+    let total = $derived(productNumber * productPrice);
+
+    /**
+     * TODO: Ajout du panier
+     * TODO: Creer de la carte
+     * TODO: Creer un carousel popup
+     * TODO: Gestion du panier
+     * 
+    */
+
+    
 </script>
 
 
@@ -52,12 +81,18 @@
             <!-- caroussel part -->
             <div>
                 <figure class=" rounded-2xl overflow-hidden mb-6">
-                    <img src={productImage1} alt="Product 1">
+                    <img src={currentProduct.bigImage} alt="Product 1">
                 </figure>
                 <ul class="grid grid-cols-4 gap-3">
-                    {#each productImages as product}
+                    {#each productImages as product (product.id)}
                         <li>
-                            <button class=" overflow-hidden rounded-2xl border-[3px] border-orange opacity-75 cursor-pointer">
+                            <button 
+                                class=" overflow-hidden rounded-2xl  
+                                { productIndex === product.id ? "border-[3px] border-orange opacity-85": " opacity-50"} 
+                                cursor-pointer"
+                                aria-label="See the product {product.id + 1} "
+                                onclick={() => productIndex = product.id}
+                            >
                                 <img src={product.smallImage} alt="">
                             </button>
                         </li>
@@ -80,7 +115,7 @@
 
                 <h3 class="flex items-center gap-6 mb-4">
                     <span class=" text-4xl font-bold text-dark-blue">
-                        $125.00
+                        ${productPrice}.00
                     </span>
                     <span class=" text-white bg-black px-2 py-0.5 rounded-lg">
                         50%
@@ -93,30 +128,39 @@
                     </del>
                 </p>
 
+
                 <!-- Buttons to add to cart an others -->
                 <div class="flex flex-col md:flex-row items-center gap-6 md:gap-3">
                     <div class="flex items-center gap-6 bg-light-grayish-blue rounded-sm">
                         <button 
                             aria-label="Take off article" 
                             class="py-2.5 px-5 cursor-pointer"
+                            onclick={decrementProductNumber}
                         >
                             <img src={minus} alt="">
                         </button>
-                        <span class=" font-bold text-dark-blue">
-                            0
-                        </span>
+
+                        <input 
+                            type="text" 
+                            bind:value={productNumber} 
+                            class=" w-6 h-6 font-bold text-dark-blue text-center"
+                        >
+
                         <button 
                             aria-label="Add article"
                             class="py-2.5 px-5 cursor-pointer"
+                            onclick={incrementProductNumber}
                         >
                             <img src={plus} alt="">
                         </button>
                     </div>
 
-                    <div class=" bg-red-500 w-full md:w-1/2 rounded-sm overflow-hidden">
+                    <div class="w-full md:w-1/2 rounded-sm overflow-hidden">
                         <button 
                             class="flex items-center justify-center gap-2 bg-orange text-dark-blue 
-                            py-2.5 px-5 w-full cursor-pointer hover:bg-orange-300 transition-colors"
+                            py-2.5 px-5 w-full hover:bg-orange-300 transition-colors
+                            { productNumber === 0 ? "cursor-not-allowed" : "cursor-pointer"} "
+                            disabled={ productNumber === 0 }
                         >
                             <ShoppingCart  />
                             Add to cart

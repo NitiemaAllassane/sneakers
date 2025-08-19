@@ -13,7 +13,7 @@
     ];
 </script>
 
-<header class="py-6 sticky md:static top-0 bg-white z-10">
+<header class="py-6 md:py-3 sticky md:static top-0 bg-white z-10">
     <div class="container flex items-center justify-between md:border-b-2 md:border-b-grayish-blue md:pb-6">
         <div class="flex items-center md:gap-16 lg:gap-24">
             <div class="flex items-center gap-3">
