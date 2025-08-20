@@ -1,6 +1,7 @@
 <script>
     import MenuButton from "./MenuButton.svelte";
     import Basket from "./Basket.svelte";
+    import Cart from "./Cart.svelte";
     import Logo from "./Logo.svelte";
 
 
@@ -11,6 +12,12 @@
         {name: "About", link: "/"},
         {name: "Contact", link: "/"},
     ];
+
+    let cartIsDisplay = $state(false);
+
+    function toggleCart() {
+        cartIsDisplay = !cartIsDisplay
+    }
 </script>
 
 <header class="py-6 md:py-3 sticky md:static top-0 bg-white z-10">
@@ -42,7 +49,7 @@
 
         <div class="flex items-center gap-6 md:gap-11">
             <!-- Basket component -->
-            <Basket  />
+            <Basket onBasketClick={toggleCart} />
             <figure 
                 class=" w-8 h-8 md:w-16 md:h-16 rounded-full cursor-pointer overflow-hidden
                        hover:border-2 hover:border-orange "
@@ -52,3 +59,7 @@
         </div>
     </div>
 </header>
+
+{#if cartIsDisplay}
+    <Cart  />
+{/if}

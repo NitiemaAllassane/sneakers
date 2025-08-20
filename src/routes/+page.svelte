@@ -1,6 +1,7 @@
 <script>
     import Header from "$lib/components/Header.svelte";
-    import { Currency, ShoppingCart } from "@lucide/svelte";
+    import { ShoppingCart } from "@lucide/svelte";
+    import { addToCart } from "$lib/stock/cart";
 
     import minus from "$lib/assets/icon-minus.svg";
     import plus from "$lib/assets/icon-plus.svg";
@@ -50,6 +51,20 @@
     let productPrice = 125;
     let productNumber = $state(0);
 
+    function handleCart() {
+        if (productNumber === 0) return;
+
+        addToCart({
+            id: currentProduct.id,
+            name: "Fall Limited Edition Sneakers",
+            price: productPrice,
+            quantity: productNumber,
+            image: currentProduct.smallImage
+
+        })
+
+        productNumber = 0;
+    }
 
     const incrementProductNumber = () => productNumber++;
     const decrementProductNumber = () => {
@@ -58,15 +73,7 @@
     };
 
 
-    let total = $derived(productNumber * productPrice);
-
-    /**
-     * TODO: Ajout du panier
-     * TODO: Creer de la carte
-     * TODO: Creer un carousel popup
-     * TODO: Gestion du panier
-     * 
-    */
+    
 
     
 </script>
@@ -76,7 +83,7 @@
 
 <main class="mt-6 md:mt-16">
     <div class="container-md">
-        <section class="flex flex-col md:flex-row items-center justify-center gap-1 md:gap-44">
+        <section class="flex flex-col md:flex-row items-center justify-center md:gap-16 lg:gap-44">
 
             <!-- caroussel part -->
             <div>
@@ -93,7 +100,7 @@
                                 aria-label="See the product {product.id + 1} "
                                 onclick={() => productIndex = product.id}
                             >
-                                <img src={product.smallImage} alt="">
+                                <img src={product.smallImage} alt="Product thumbnail {product.id + 1}">
                             </button>
                         </li>
                     {/each}
@@ -144,6 +151,9 @@
                             type="text" 
                             bind:value={productNumber} 
                             class=" w-6 h-6 font-bold text-dark-blue text-center"
+                            min="0"
+                            max="99"
+                            readonly
                         >
 
                         <button 
@@ -161,6 +171,8 @@
                             py-2.5 px-5 w-full hover:bg-orange-300 transition-colors
                             { productNumber === 0 ? "cursor-not-allowed" : "cursor-pointer"} "
                             disabled={ productNumber === 0 }
+
+                            onclick={handleCart}
                         >
                             <ShoppingCart  />
                             Add to cart
