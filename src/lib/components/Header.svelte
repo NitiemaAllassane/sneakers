@@ -49,7 +49,7 @@
 
         <div class="flex items-center gap-6 md:gap-11">
             <!-- Basket component -->
-            <Basket onBasketClick={toggleCart} />
+            <Basket onBasketClick={toggleCart}  />
             <figure 
                 class=" w-8 h-8 md:w-16 md:h-16 rounded-full cursor-pointer overflow-hidden
                        hover:border-2 hover:border-orange "

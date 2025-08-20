@@ -54,11 +54,3 @@
     }
 }
 
-.container-md {
-    max-width: 1180px;
-    margin: 0 auto;
-
-    @media screen and (max-width: 1440px) {
-        max-width: 90%;
-    }
-}

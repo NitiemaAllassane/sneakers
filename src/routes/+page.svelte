@@ -5,6 +5,8 @@
 
     import minus from "$lib/assets/icon-minus.svg";
     import plus from "$lib/assets/icon-plus.svg";
+    import nextIcon from "$lib/assets/icon-next.svg";
+    import previousIcon from "$lib/assets/icon-previous.svg";
 
     // product big images
     import productImage1 from "$lib/assets/images/image-product-1.jpg"
@@ -73,7 +75,27 @@
     };
 
 
+    // Gestion du caroussel sur mobile
+    function goToNextProduct() {
+        if (productIndex >= productImages.length - 1) {
+            productIndex = 0
+        }
+
+        productIndex += 1;
+    }
+
+    function goToPreviousProduct() {
+        if (productIndex === 0) {
+            productIndex = productImages.length - 1;
+        }
+
+        productIndex -= 1;
+    }
     
+
+    /***
+     * TODO: Essayer d'ajouter des transitions sur le carousel sur mobile.
+    */
 
     
 </script>
@@ -87,10 +109,31 @@
 
             <!-- caroussel part -->
             <div>
-                <figure class=" rounded-2xl overflow-hidden mb-6">
-                    <img src={currentProduct.bigImage} alt="Product 1">
-                </figure>
-                <ul class="grid grid-cols-4 gap-3">
+                <div class="relative">
+                    <figure class=" md:rounded-2xl overflow-hidden mb-6">
+                        <img src={currentProduct.bigImage} alt="Product 1">
+                    </figure>
+
+                    <div class=" absolute top-1/2 left-1/2 -translate-x-1/2 flex items-center 
+                                justify-between w-[90%] md:hidden"
+                    >
+                        <button 
+                            type="button"
+                            class=" bg-white w-10 h-10 rounded-full flex items-center justify-center"
+                            onclick={goToPreviousProduct}
+                        >
+                            <img src={previousIcon} alt="" aria-hidden="true">
+                        </button>
+                        <button 
+                            type="button"
+                            class=" bg-white w-10 h-10 rounded-full flex items-center justify-center"
+                            onclick={goToNextProduct}
+                        >
+                            <img src={nextIcon} alt="" aria-hidden="true">
+                        </button>
+                    </div>
+                </div>
+                <ul class="hidden md:grid grid-cols-4 gap-3">
                     {#each productImages as product (product.id)}
                         <li>
                             <button 
@@ -108,7 +151,7 @@
             </div>
 
             <!-- Sneakers information part -->
-            <div>
+            <div class=" px-5 md:px-0">
                 <h4 class=" font-bold text-dark-grayish-blue tracking-[2px] mb-4 ">
                     SNEAKER COMPANY
                 </h4>
@@ -202,3 +245,19 @@
         </a>.
     </div>
 </footer>
+
+
+
+<style>
+    .container-md {
+        margin: 0 auto;
+        
+        @media screen and (min-width: 1280px) {
+            max-width: 1180px;
+        }
+
+        @media screen and (min-width: 48rem) {
+            max-width: 80%;
+        }
+    }
+</style>

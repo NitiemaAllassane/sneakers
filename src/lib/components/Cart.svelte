@@ -7,7 +7,7 @@
     /**
 	 * @param {number} productId
 	 */
-    
+
     function handleRemoveItem(productId) {
         removeFromCart(productId);
     }
