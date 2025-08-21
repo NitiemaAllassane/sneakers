@@ -1,5 +1,6 @@
 <script>
     import Header from "$lib/components/Header.svelte";
+    import CarouselPopup from "$lib/components/CarouselPopup.svelte";
     import { ShoppingCart } from "@lucide/svelte";
     import { addToCart } from "$lib/stock/cart";
 
@@ -76,6 +77,7 @@
 
 
     // Gestion du caroussel sur mobile
+
     function goToNextProduct() {
         if (productIndex >= productImages.length - 1) {
             productIndex = 0
@@ -93,14 +95,13 @@
     }
     
 
-    /***
-     * TODO: Essayer d'ajouter des transitions sur le carousel sur mobile.
-    */
+    // Popup
 
+    let isPopupOpened = $state(false);
     
 </script>
 
-
+<!-- * HEADER -->
 <Header  />
 
 <main class="mt-6 md:mt-16">
@@ -110,10 +111,14 @@
             <!-- caroussel part -->
             <div>
                 <div class="relative">
-                    <figure class=" md:rounded-2xl overflow-hidden mb-6">
-                        <img src={currentProduct.bigImage} alt="Product 1">
+                    <!-- image principale -->
+                    <figure>
+                        <button class=" md:rounded-2xl overflow-hidden mb-6 cursor-zoom-in" onclick={() => isPopupOpened = true}>
+                            <img src={currentProduct.bigImage} alt="Product">
+                        </button>
                     </figure>
 
+                    <!--  Bouton du caroussel -->
                     <div class=" absolute top-1/2 left-1/2 -translate-x-1/2 flex items-center 
                                 justify-between w-[90%] md:hidden"
                     >
@@ -227,24 +232,19 @@
     </div>
 </main>
 
-<footer class=" mt-16 text-center text-dark-blue py-3">
-    <div class="attribution">
-        Challenge by 
-        <a 
-            href="https://www.frontendmentor.io?ref=challenge" target="_blank"
-            class=" text-orange"
-        >
-            Frontend Mentor
-        </a>. 
-        Coded by 
-        <a 
-            href="https://www.frontendmentor.io/profile/NitiemaAllassane"
-            class=" text-orange"
-        >
-            Nitiema Allassane
-        </a>.
-    </div>
-</footer>
+
+<!-- POPUP -->
+{#if isPopupOpened }
+    <CarouselPopup 
+        closePopup={() => isPopupOpened = false} 
+        {productImages}
+        {currentProduct}
+        {goToNextProduct}
+        {goToPreviousProduct}
+        bind:productIndex={productIndex}
+    />
+{/if}
+
 
 
 
