@@ -1,21 +1,12 @@
 <script>
     import { X } from "@lucide/svelte";
 
-    // product big images
-    import productImage1 from "$lib/assets/images/image-product-1.jpg"
-    import productImage2 from "$lib/assets/images/image-product-2.jpg"
-    import productImage3 from "$lib/assets/images/image-product-3.jpg"
-    import productImage4 from "$lib/assets/images/image-product-4.jpg"
-
-    // product small images
-    import smallProductImage1 from "$lib/assets/images/image-product-1-thumbnail.jpg";
-    import smallProductImage2 from "$lib/assets/images/image-product-2-thumbnail.jpg";
-    import smallProductImage3 from "$lib/assets/images/image-product-3-thumbnail.jpg";
-    import smallProductImage4 from "$lib/assets/images/image-product-4-thumbnail.jpg";
-
     import nextIcon from "$lib/assets/icon-next.svg";
     import previousIcon from "$lib/assets/icon-previous.svg";
 
+    /**
+	 * @param {{ key: string; preventDefault: () => void; }} event
+	 */
     function handleOverlayKeydown(event) {
         if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
@@ -24,6 +15,9 @@
     }
 
     // Gestion du clavier pour le contenu (empêcher la fermeture)
+    /**
+	 * @param {{ stopPropagation: () => void; }} event
+	 */
     function handleContentKeydown(event) {
         event.stopPropagation();
     }

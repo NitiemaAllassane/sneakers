@@ -3,6 +3,7 @@
     import Basket from "./Basket.svelte";
     import Cart from "./Cart.svelte";
     import Logo from "./Logo.svelte";
+    import MobileNav from "./MobileNav.svelte";
 
 
     const navItems = [
@@ -13,11 +14,13 @@
         {name: "Contact", link: "/"},
     ];
 
-    let cartIsDisplay = $state(false);
+    // cart state
+    let isCartDisplay = $state(false);
 
-    function toggleCart() {
-        cartIsDisplay = !cartIsDisplay
-    }
+    //mobile naviation state
+    let isMobileNavOpened = $state(false)
+
+
 </script>
 
 <header class="py-6 md:py-3 sticky md:static top-0 bg-white z-10">
@@ -25,7 +28,7 @@
         <div class="flex items-center md:gap-16 lg:gap-24">
             <div class="flex items-center gap-3">
                 <!-- menu button : it's display on mobile only -->
-                <MenuButton  />
+                <MenuButton onMenuClick={() => isMobileNavOpened = true}  />
                 <div>
                     <Logo  />
                 </div>
@@ -49,7 +52,9 @@
 
         <div class="flex items-center gap-6 md:gap-11">
             <!-- Basket component -->
-            <Basket onBasketClick={toggleCart}  />
+            <Basket 
+                onBasketClick={() => isCartDisplay = !isCartDisplay} 
+             />
             <figure 
                 class=" w-8 h-8 md:w-16 md:h-16 rounded-full cursor-pointer overflow-hidden
                        hover:border-2 hover:border-orange "
@@ -60,6 +65,16 @@
     </div>
 </header>
 
-{#if cartIsDisplay}
+<!-- panier -->
+{#if isCartDisplay}
     <Cart  />
+{/if}
+
+
+<!-- mobile navigation -->
+
+{#if isMobileNavOpened}
+    <MobileNav  
+        onCloseButtonClick={() => isMobileNavOpened = false}
+    />
 {/if}
